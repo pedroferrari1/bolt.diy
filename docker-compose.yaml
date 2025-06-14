@@ -32,6 +32,7 @@ services:
     command: pnpm run dockerstart
     profiles:
       - production
+      - default  # <--- ALTERAÇÃO AQUI
 
   app-dev:
     image: bolt-ai:development
@@ -71,7 +72,9 @@ services:
     ports:
       - '5173:5173'
     command: pnpm run dev --host 0.0.0.0
-    profiles: ['development', 'default']
+    # Removendo 'default' daqui para evitar conflitos.
+    # O ambiente de desenvolvimento será iniciado com 'docker compose --profile development up'
+    profiles: ['development']
 
   app-prebuild:
     image: ghcr.io/stackblitz-labs/bolt.diy:latest
